@@ -1,14 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import InputText from './childComponents/InputText';
 import TileInputsContext from '../context/TileInputContext';
 
 function TotalArea() {
+  const [error, setError] = useState("");
   const { inputs, setInputs } = useContext(TileInputsContext);
 
   const handleTotalAreaChange = (e) => {
     const raw = e.target.value;
+    if (isNaN(raw)) {
+      setError("Please enter a valid number for total area.");
+      return;
+    }
+    else{
+      setError("");
+    }
     const converted = inputs.unit === 'Feet'
-      ? (parseFloat(raw) * 0.092903).toFixed(4) // ✅ Convert to meter
+      ? (parseFloat(raw) * 0.092903).toFixed(4)
       : raw;
 
     setInputs({ ...inputs, totalArea: converted });
@@ -35,6 +43,7 @@ function TotalArea() {
           onUnitChange={handleUnitChange}
         />
       </div>
+      {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
     </div>
   );
 }

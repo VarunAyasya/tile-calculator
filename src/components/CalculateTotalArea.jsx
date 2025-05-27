@@ -3,27 +3,38 @@ import InputText from './childComponents/InputText';
 import TileInputsContext from '../context/TileInputContext';
 
 function CalculateTotalArea() {
+  const [error, setError] = useState("");
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
   const { inputs, setInputs, walls, setWalls } = useContext(TileInputsContext);
 
   const handleAddWall = () => {
-    if (!width || !height) return;
+    if ((!width || !height) && !inputs.totalArea) {
+      setError("❌ Please enter Width and Height or use 'Total Area' tab.");
+      return;
+    }
+
+    if (isNaN(width) || isNaN(height)) {
+      setError("Width and Height must be numbers.");
+      return;
+    }
+
+    setError("");
 
     const newWalls = [...walls, { width, height }];
     setWalls(newWalls);
-    setWidth('');
-    setHeight('');
+    setWidth("");
+    setHeight("");
 
-    // ✅ Compute total area from all walls
     const totalArea = newWalls.reduce((sum, wall) => {
       const w = parseFloat(wall.width) || 0;
       const h = parseFloat(wall.height) || 0;
       return sum + w * h;
     }, 0);
 
-    setInputs({ ...inputs, totalArea: totalArea.toFixed(2) }); // update context
+    setInputs({ ...inputs, totalArea: totalArea.toFixed(2) });
   };
+
 
   const unitChoices = ['Meter', 'Feet'];
 
@@ -60,6 +71,7 @@ function CalculateTotalArea() {
           Add another wall
         </button>
       </div>
+      {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
       {walls.length > 0 && (
         <div className="mt-4 mx-4 text-sm text-gray-800">

@@ -7,7 +7,6 @@ const pcsPerBoxOptions = [2, 4, 6];
 export default function SelectTileSize({ goToNextStep }) {
   const { inputs, setInputs } = useContext(TileInputsContext);
 
-  // ✅ Convert "600x600 mm" to m² (with context unit)
   const calculateTileAreaInSqMeters = (sizeStr) => {
     if (!sizeStr) return 0;
     const [w, h] = sizeStr.replace(' mm', '').split('x').map(Number);
