@@ -85,7 +85,7 @@ function CalculateTotalArea() {
           </ul>
 
           <p className="mt-2 font-medium text-green-700">
-            ✅ Total Area: {inputs.totalArea} {inputs.unit}²
+             Total Area: {inputs.totalArea} {inputs.unit}²
           </p>
         </div>
       )}

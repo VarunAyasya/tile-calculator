@@ -73,7 +73,7 @@ export default function SelectTileSize({ goToNextStep }) {
       {/* Boxes Needed */}
       {boxesNeeded && (
         <div className="mt-4 text-green-700 font-semibold">
-          📦 Boxes Required: {boxesNeeded}
+          Boxes Required: {boxesNeeded}
         </div>
       )}
 
