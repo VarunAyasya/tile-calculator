@@ -25,7 +25,7 @@ function BoxSummary({ onRecalculate }) {
     tilesNeeded += Math.ceil((tilesNeeded * parseFloat(wastage || 0)) / 100);
 
     return Math.ceil(tilesNeeded / pcsPerBox);
-  }, [inputs.totalArea, inputs.tileSize, inputs.pcsPerBox, grout, wastage]); // 👈 react to changes
+  }, [inputs.totalArea, inputs.tileSize, inputs.pcsPerBox, grout, wastage]); 
 
   const handleRecalculate = () => {
     setInputs({ ...inputs, groutWidth: grout, wastage });

@@ -5,7 +5,7 @@ function InputDropdown({ choices = [], value, onChange, className = '' }) {
     <div className="relative">
       <select
         value={value}
-        onChange={(e) => onChange && onChange(e.target.value)} // ✅ FIXED
+        onChange={(e) => onChange && onChange(e.target.value)} 
         className={`appearance-none pr-6 focus:outline-none ${className}`}
       >
         <option value="">Choose</option>
