@@ -8,6 +8,8 @@ function CalculateTotalArea() {
   const [height, setHeight] = useState('');
   const { inputs, setInputs, walls, setWalls } = useContext(TileInputsContext);
 
+  const convertToMeters = (val) => (inputs.unit === 'Feet' ? val * 0.3048 : val);
+
   const handleAddWall = () => {
     if ((!width || !height) && !inputs.totalArea) {
       setError("❌ Please enter Width and Height or use 'Total Area' tab.");
@@ -21,7 +23,10 @@ function CalculateTotalArea() {
 
     setError("");
 
-    const newWalls = [...walls, { width, height }];
+    const wInMeters = convertToMeters(parseFloat(width));
+    const hInMeters = convertToMeters(parseFloat(height));
+
+    const newWalls = [...walls, { width: wInMeters.toFixed(2), height: hInMeters.toFixed(2) }];
     setWalls(newWalls);
     setWidth("");
     setHeight("");
@@ -34,7 +39,6 @@ function CalculateTotalArea() {
 
     setInputs({ ...inputs, totalArea: totalArea.toFixed(2) });
   };
-
 
   const unitChoices = ['Meter', 'Feet'];
 
@@ -79,13 +83,13 @@ function CalculateTotalArea() {
           <ul className="list-disc ml-5 space-y-1">
             {walls.map((wall, index) => (
               <li key={index}>
-                Wall {index + 1} of {wall.width} × {wall.height} ({inputs.unit})
+                Wall {index + 1} of {wall.width} × {wall.height} (Meters)
               </li>
             ))}
           </ul>
 
           <p className="mt-2 font-medium text-green-700">
-             Total Area: {inputs.totalArea} {inputs.unit}²
+            Total Area: {inputs.totalArea} m²
           </p>
         </div>
       )}

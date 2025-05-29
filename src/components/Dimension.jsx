@@ -4,12 +4,14 @@ import Unit from './Unit';
 import TotalArea from './TotalArea';
 import CalculateTotalArea from './CalculateTotalArea';
 
+
 function Dimension({onNext}) {
     const [activeForm, setActiveForm] = useState(null);
 
     const handleSwitch = (formType) => {
         setActiveForm(formType);
     };
+
 
     return (
         <div className=' rounded shadow'>

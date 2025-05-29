@@ -8,13 +8,15 @@ function TotalArea() {
 
   const handleTotalAreaChange = (e) => {
     const raw = e.target.value;
+
     if (isNaN(raw)) {
       setError("Please enter a valid number for total area.");
       return;
-    }
-    else{
+    } else {
       setError("");
     }
+
+    // Convert feet² to m² before storing
     const converted = inputs.unit === 'Feet'
       ? (parseFloat(raw) * 0.092903).toFixed(4)
       : raw;
@@ -35,9 +37,12 @@ function TotalArea() {
           title="Total"
           placeholder="Enter Total Area"
           choices={['Meter', 'Feet']}
-          value={inputs.unit === 'Feet'
-            ? (parseFloat(inputs.totalArea || 0) / 0.092903).toFixed(2)
-            : inputs.totalArea || ''}
+          // Display original unit while storing in meters
+          value={
+            inputs.unit === 'Feet'
+              ? (parseFloat(inputs.totalArea || 0) / 0.092903).toFixed(2)
+              : inputs.totalArea || ''
+          }
           onChange={handleTotalAreaChange}
           unit={inputs.unit}
           onUnitChange={handleUnitChange}
